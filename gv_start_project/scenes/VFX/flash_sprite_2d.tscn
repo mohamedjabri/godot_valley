@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://b1a4cl0kv3lpw"]
+
+[ext_resource type="Shader" uid="uid://b6nm5dtkeitqy" path="res://shaders/flash.tres" id="1_p4xd0"]
+[ext_resource type="Script" uid="uid://duem85p826hp7" path="res://scenes/VFX/flash_sprite_2d.gd" id="3_gr1tb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8h1q4"]
+resource_local_to_scene = true
+shader = ExtResource("1_p4xd0")
+shader_parameter/Color = Color(1, 1, 1, 1)
+shader_parameter/Progress = 0.0
+
+[node name="FlashSprite2D" type="Sprite2D" unique_id=1424005451]
+material = SubResource("ShaderMaterial_8h1q4")
+script = ExtResource("3_gr1tb")

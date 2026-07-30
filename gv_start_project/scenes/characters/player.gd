@@ -1,7 +1,7 @@
 extends CharacterBody2D
 var direction: Vector2 
 var last_direction: Vector2
-var current_tool: Enum.Tool = Enum.Tool.FISH
+var current_tool: Enum.Tool = Enum.Tool.SWORD
 var current_seed: Enum.Seed = Enum.Seed.TOMATO
 var can_move: bool = true
 

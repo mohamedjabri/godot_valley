@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dbmbhotl3mjb4" path="res://scenes/characters/player.gd" id="2_76oj4"]
 [ext_resource type="Texture2D" uid="uid://bp3sfnx2rutrs" path="res://graphics/characters/main/main_basic.png" id="3_6eyoc"]
+[ext_resource type="PackedScene" uid="uid://brl0me0ik87pi" path="res://scenes/UI/tool_ui.tscn" id="3_76oj4"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_atpat"]
 radius = 3.0
@@ -1543,6 +1544,7 @@ transitions = ["Start", "Axe", SubResource("AnimationNodeStateMachineTransition_
 graph_offset = Vector2(-15, -461)
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_inhyd"]
+graph_offset = Vector2(-391.4198, -147.57709)
 nodes/output/position = Vector2(688, -64)
 nodes/ToolStateMachine/node = SubResource("AnimationNodeStateMachine_w5sjy")
 nodes/ToolStateMachine/position = Vector2(40, 140)
@@ -1591,6 +1593,8 @@ parameters/ToolOneShot/request = 0
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1069736670]
 zoom = Vector2(3, 3)
+
+[node name="ToolUI" parent="." unique_id=866301557 instance=ExtResource("3_76oj4")]
 
 [connection signal="animation_finished" from="Animation/AnimationTree" to="." method="_on_animation_tree_animation_finished"]
 [connection signal="animation_started" from="Animation/AnimationTree" to="." method="_on_animation_tree_animation_started"]
