@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://bp3sfnx2rutrs" path="res://graphics/characters/main/main_basic.png" id="3_6eyoc"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_atpat"]
-radius = 3.0
-height = 8.0
+radius = 4.0
+height = 10.0
 
 [sub_resource type="Animation" id="Animation_2l4js"]
 resource_name = "axe_down"
