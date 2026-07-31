@@ -1,12 +1,14 @@
 extends StaticBody2D
 const APPLE_TEXTURE = preload("res://graphics/plants/apple.png")
+const MAX_HEALTH: int =  3
+
 @onready var flash_sprite_2d: Sprite2D = $FlashSprite2D
 @onready var apple_spawn_position: Node2D = $AppleSpawnPosition
 @onready var apples: Node2D = $Apples
 @onready var stump: Sprite2D = $Stump
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
-var health : int = 3:
+var health : int = MAX_HEALTH:
 	set(value):
 		health = value
 		if health <= 0:
@@ -24,7 +26,7 @@ var health : int = 3:
 
 
 func _ready():
-	create_apples(3)
+	create_apples(randi_range(0, 2))
 
 
 func hit(tool: Enum.Tool) -> void:
@@ -47,4 +49,10 @@ func create_apples(num: int):
 func  get_apple():
 	if apples.get_children():
 		apples.get_children().pick_random().queue_free()
+		
+func reset():
+	for apple in apples.get_children():
+		apple.queue_free()
+	create_apples(randf_range(0,2))
+	health = MAX_HEALTH
 	

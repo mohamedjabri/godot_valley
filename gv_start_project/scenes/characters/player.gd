@@ -11,6 +11,7 @@ signal tool_use(tool: Enum.Tool, pos: Vector2)
 @onready var animation_tree: AnimationTree = %AnimationTree
 @onready var move_state_machine = animation_tree.get("parameters/MoveStateMachine/playback")
 @onready var tool_state_machine = animation_tree.get("parameters/ToolStateMachine/playback")
+@onready var tool_ui: Control = $ToolUI
 
 
 func _physics_process(_delta: float) -> void:
@@ -21,6 +22,7 @@ func _physics_process(_delta: float) -> void:
 	
 	if direction:
 		last_direction = direction
+		
 	
 func move() -> void:
 	direction = Input.get_vector("left", "right", "up", "down")
@@ -44,10 +46,11 @@ func get_basic_input():
 	if Input.is_action_just_pressed("tool_forward") or Input.is_action_just_pressed("tool_backward"):
 		var dir = Input.get_axis("tool_backward", "tool_forward")
 		current_tool = posmod(current_tool + int(dir), Enum.Tool.size()) as Enum.Tool
+		tool_ui.reveal_tool_container()
 	
 	if Input.is_action_just_pressed("seed_forward"):
 		current_seed = (current_seed + 1) % Enum.Seed.size() as Enum.Seed
-		
+		tool_ui.reveal_seed_container()
 	
 	if Input.is_action_just_pressed("action"):
 		tool_state_machine.travel(Data.TOOL_STATE_ANIMATIONS[current_tool])
