@@ -8,8 +8,10 @@ extends Node2D
 @onready var day_time_color_canvas: CanvasModulate = $Overlay/DayTimeColorCanvas
 @onready var day_transition_layer: ColorRect = %DayTransitionLayer
 @onready var tree: StaticBody2D = $Objects/Tree
+@onready var plant_info_container: Control = %PlantInfoContainer
 
 var plant_scene = preload("res://scenes/objects/plant.tscn")
+var plant_info_scene = preload("res://scenes/UI/plant_info.tscn")
 var used_cells: Array[Vector2i]
 
 func _on_player_tool_use(tool: Enum.Tool, pos: Vector2) -> void:
@@ -32,9 +34,16 @@ func _on_player_tool_use(tool: Enum.Tool, pos: Vector2) -> void:
 		
 		Enum.Tool.SEED:
 			if has_soil and grid_coord not in used_cells:
+				var plant_res = PlantResource.new()
+				plant_res.setup(player.current_seed)
 				var plant = plant_scene.instantiate()
-				plant.setup(grid_coord, $Objects)
+				plant.setup(grid_coord, $Objects, plant_res)
 				used_cells.append(grid_coord)
+				
+				var plant_info = plant_info_scene.instantiate()
+				#plant_info.setup(plant_res)
+				plant_info_container.add(plant_info)
+				
 		Enum.Tool.AXE, Enum.Tool.SWORD:
 			for object in get_tree().get_nodes_in_group("Objects"):
 				if object.position.distance_to(pos) < 20:
@@ -56,6 +65,9 @@ func day_restart():
 	tween.tween_property(day_transition_layer.material, "shader_parameter/progress", 0.0, 1.0)
 	
 func level_reset():
+	for plant in get_tree().get_nodes_in_group("Plants"):
+		plant.manage(plant.coord in water_soil_layer.get_used_cells())
+	water_soil_layer.clear()
 	day_timer.start()
 	if tree.health >= 0 and tree.health < tree.MAX_HEALTH:
 		tree.reset()

@@ -1,21 +1,43 @@
 [gd_scene format=3 uid="uid://boqy2w11hcfuy"]
 
 [ext_resource type="Script" uid="uid://cuw65y0bis5fr" path="res://scenes/objects/plant.gd" id="1_fvfks"]
-[ext_resource type="Texture2D" uid="uid://b41e01wg87oo5" path="res://graphics/plants/wheat.png" id="1_re4db"]
+[ext_resource type="PackedScene" uid="uid://b1a4cl0kv3lpw" path="res://scenes/VFX/flash_sprite_2d.tscn" id="2_7bmar"]
+[ext_resource type="Shader" uid="uid://b6nm5dtkeitqy" path="res://shaders/flash.tres" id="3_0a33w"]
+[ext_resource type="Texture2D" uid="uid://cnur3o7y688kk" path="res://graphics/plants/tomato.png" id="4_0a33w"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0a33w"]
+resource_local_to_scene = true
+shader = ExtResource("3_0a33w")
+shader_parameter/Color = Color(1, 1, 1, 1)
+shader_parameter/Progress = 0.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6m2vy"]
 radius = 3.0
 height = 6.0
 
-[node name="Plant" type="StaticBody2D" unique_id=1169572390]
+[sub_resource type="CircleShape2D" id="CircleShape2D_0a33w"]
+
+[node name="Plant" type="StaticBody2D" unique_id=1169572390 groups=["Plants"]]
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_fvfks")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=939987229]
+[node name="FlashSprite2D" parent="." unique_id=1424005451 instance=ExtResource("2_7bmar")]
+material = SubResource("ShaderMaterial_0a33w")
 position = Vector2(0, -9)
-texture = ExtResource("1_re4db")
+texture = ExtResource("4_0a33w")
 hframes = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2062014533]
 shape = SubResource("CapsuleShape2D_6m2vy")
+
+[node name="PickUpArea" type="Area2D" parent="." unique_id=591378196]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickUpArea" unique_id=1420459549]
+position = Vector2(0, -1.5)
+shape = SubResource("CircleShape2D_0a33w")
+
+[connection signal="body_entered" from="PickUpArea" to="." method="_on_pick_up_area_body_entered"]
+[connection signal="body_exited" from="PickUpArea" to="." method="_on_pick_up_area_body_exited"]

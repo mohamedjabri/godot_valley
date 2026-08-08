@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://d2530w2lrixv4" path="res://scenes/objects/tree.tscn" id="7_mbbpy"]
 [ext_resource type="PackedScene" uid="uid://vem02mh7silc" path="res://scenes/objects/simple_object.tscn" id="8_ouxo3"]
 [ext_resource type="Shader" uid="uid://2dfugyjih0oe" path="res://shaders/circle_transition.gdshader" id="9_icy5c"]
+[ext_resource type="PackedScene" uid="uid://gxfhn8vu2d0l" path="res://scenes/UI/plant_info_container.tscn" id="10_rmjfq"]
 
 [sub_resource type="Gradient" id="Gradient_7pb6i"]
 offsets = PackedFloat32Array(0.008733625, 0.29257643, 0.47161573, 1)
@@ -909,13 +910,14 @@ position = Vector2(186, 342)
 position = Vector2(133, 345)
 
 [node name="SimpleObject" parent="Objects" unique_id=885638061 instance=ExtResource("8_ouxo3")]
+z_index = -1
 position = Vector2(96, 420)
-size = 2
+size = 1
 random = true
 
 [node name="SimpleObject2" parent="Objects" unique_id=2045465609 instance=ExtResource("8_ouxo3")]
 position = Vector2(142, 398)
-size = 3
+size = 2
 style = 1
 random = true
 
@@ -927,17 +929,20 @@ random = true
 [node name="SimpleObject4" parent="Objects" unique_id=10625111 instance=ExtResource("8_ouxo3")]
 z_index = -1
 position = Vector2(290, 409)
+size = 1
+style = 1
 random = true
 
 [node name="SimpleObject5" parent="Objects" unique_id=743915013 instance=ExtResource("8_ouxo3")]
 z_index = -1
 position = Vector2(265, 335)
-style = 1
+size = 1
 random = true
 
 [node name="SimpleObject6" parent="Objects" unique_id=269356134 instance=ExtResource("8_ouxo3")]
+z_index = -1
 position = Vector2(250, 379)
-size = 2
+size = 1
 random = true
 
 [node name="Overlay" type="Node2D" parent="." unique_id=1856615701]
@@ -956,10 +961,13 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.099985994, 0.099985994, 0.099985994, 1)
 
+[node name="PlantInfoContainer" parent="Overlay/CanvasLayer" unique_id=58419911 instance=ExtResource("10_rmjfq")]
+unique_name_in_owner = true
+
 [node name="Timers" type="Node" parent="." unique_id=48319566]
 
 [node name="DayTimer" type="Timer" parent="Timers" unique_id=2136571250]
-wait_time = 5.0
+wait_time = 180.0
 one_shot = true
 autostart = true
 
