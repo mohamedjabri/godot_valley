@@ -6,6 +6,7 @@ var current_seed: Enum.Seed = Enum.Seed.TOMATO
 var can_move: bool = true
 
 signal tool_use(tool: Enum.Tool, pos: Vector2)
+signal diagnose
 
 @export var speed: int = 50
 @onready var animation_tree: AnimationTree = %AnimationTree
@@ -55,6 +56,9 @@ func get_basic_input():
 	if Input.is_action_just_pressed("action"):
 		tool_state_machine.travel(Data.TOOL_STATE_ANIMATIONS[current_tool])
 		animation_tree.set("parameters/ToolOneShot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+		
+	if Input.is_action_just_pressed("diagnose"):
+		diagnose.emit()
 
 		
 func tool_use_emit():

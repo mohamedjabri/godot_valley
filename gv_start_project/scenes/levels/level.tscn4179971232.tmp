@@ -910,9 +910,9 @@ position = Vector2(186, 342)
 position = Vector2(133, 345)
 
 [node name="SimpleObject" parent="Objects" unique_id=885638061 instance=ExtResource("8_ouxo3")]
+z_index = -1
 position = Vector2(96, 420)
-size = 2
-style = 1
+size = 1
 random = true
 
 [node name="SimpleObject2" parent="Objects" unique_id=2045465609 instance=ExtResource("8_ouxo3")]
@@ -922,24 +922,29 @@ style = 1
 random = true
 
 [node name="SimpleObject3" parent="Objects" unique_id=1702751610 instance=ExtResource("8_ouxo3")]
+z_index = -1
 position = Vector2(96, 358)
-size = 3
+size = 1
+style = 1
 random = true
 
 [node name="SimpleObject4" parent="Objects" unique_id=10625111 instance=ExtResource("8_ouxo3")]
+z_index = -1
 position = Vector2(290, 409)
-size = 2
+size = 1
 style = 1
 random = true
 
 [node name="SimpleObject5" parent="Objects" unique_id=743915013 instance=ExtResource("8_ouxo3")]
 position = Vector2(265, 335)
 size = 2
+style = 1
 random = true
 
 [node name="SimpleObject6" parent="Objects" unique_id=269356134 instance=ExtResource("8_ouxo3")]
+z_index = -1
 position = Vector2(250, 379)
-size = 2
+style = 1
 random = true
 
 [node name="Overlay" type="Node2D" parent="." unique_id=1856615701]
@@ -968,5 +973,4 @@ wait_time = 180.0
 one_shot = true
 autostart = true
 
-[connection signal="diagnose" from="Objects/Player" to="." method="_on_player_diagnose"]
 [connection signal="tool_use" from="Objects/Player" to="." method="_on_player_tool_use"]

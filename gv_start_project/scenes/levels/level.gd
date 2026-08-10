@@ -41,15 +41,22 @@ func _on_player_tool_use(tool: Enum.Tool, pos: Vector2) -> void:
 				used_cells.append(grid_coord)
 				
 				var plant_info = plant_info_scene.instantiate()
-				#plant_info.setup(plant_res)
 				plant_info_container.add(plant_info)
+				plant_info.setup(plant_res) 
+				plant.picked_dead.connect(func():
+					used_cells.erase(grid_coord)
+					plant_info_container.remove(plant_info)
+				)
+
 				
 		Enum.Tool.AXE, Enum.Tool.SWORD:
 			for object in get_tree().get_nodes_in_group("Objects"):
 				if object.position.distance_to(pos) < 20:
 					object.hit(tool)
 				
-
+func _on_player_diagnose() -> void:
+	plant_info_container.visible = not plant_info_container.visible
+	
 func _process(_delta: float) -> void:
 	var daytime_point = 1 - (day_timer.time_left / day_timer.wait_time)
 	var color = daytime_color.sample(daytime_point)
@@ -66,7 +73,10 @@ func day_restart():
 	
 func level_reset():
 	for plant in get_tree().get_nodes_in_group("Plants"):
-		plant.manage(plant.coord in water_soil_layer.get_used_cells())
+		var watered: bool = plant.coord in water_soil_layer.get_used_cells()
+		plant.manage(watered)
+	for info in plant_info_container.get_infos():
+		info.update_plant_info(info.res)
 	water_soil_layer.clear()
 	day_timer.start()
 	if tree.health >= 0 and tree.health < tree.MAX_HEALTH:
