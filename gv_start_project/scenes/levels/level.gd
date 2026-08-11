@@ -4,15 +4,33 @@ extends Node2D
 @onready var grass_layer: TileMapLayer = $Layers/GrassLayer
 @onready var player: CharacterBody2D = $Objects/Player
 @export var daytime_color: Gradient
+@export var daytime_color_rain: Color
 @onready var day_timer: Timer = $Timers/DayTimer
 @onready var day_time_color_canvas: CanvasModulate = $Overlay/DayTimeColorCanvas
 @onready var day_transition_layer: ColorRect = %DayTransitionLayer
 @onready var tree: StaticBody2D = $Objects/Tree
 @onready var plant_info_container: Control = %PlantInfoContainer
+@onready var rain_floot_particles: GPUParticles2D = $Layers/RainFlootParticles
+@onready var rain_drops_particles: GPUParticles2D = $Overlay/RainDropsParticles
 
 var plant_scene = preload("res://scenes/objects/plant.tscn")
 var plant_info_scene = preload("res://scenes/UI/plant_info.tscn")
 var used_cells: Array[Vector2i]
+var raining: bool:
+	set(value):
+		raining = value
+		rain_floot_particles.emitting = value
+		rain_drops_particles.emitting = value
+		
+func _ready() -> void:
+	Data.forecast_rain = [true, false].pick_random()
+		
+func _process(_delta: float) -> void:
+	var daytime_point = 1 - (day_timer.time_left / day_timer.wait_time)
+	var color = daytime_color.sample(daytime_point).lerp(daytime_color_rain, 0.5 if raining else 0.0)
+	day_time_color_canvas.color = color
+	if Input.is_action_just_pressed("day_change"):
+		day_restart()
 
 func _on_player_tool_use(tool: Enum.Tool, pos: Vector2) -> void:
 	var grid_coord: Vector2i = soil_layer.local_to_map(soil_layer.to_local(pos))
@@ -57,13 +75,6 @@ func _on_player_tool_use(tool: Enum.Tool, pos: Vector2) -> void:
 func _on_player_diagnose() -> void:
 	plant_info_container.visible = not plant_info_container.visible
 	
-func _process(_delta: float) -> void:
-	var daytime_point = 1 - (day_timer.time_left / day_timer.wait_time)
-	var color = daytime_color.sample(daytime_point)
-	day_time_color_canvas.color = color
-	if Input.is_action_just_pressed("day_change"):
-		day_restart()
-	
 func day_restart():
 	var tween = create_tween()
 	tween.tween_property(day_transition_layer.material, "shader_parameter/progress", 1.0, 1.0)
@@ -81,5 +92,6 @@ func level_reset():
 	day_timer.start()
 	if tree.health >= 0 and tree.health < tree.MAX_HEALTH:
 		tree.reset()
+	raining = Data.forecast_rain
 		
 	

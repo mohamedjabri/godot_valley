@@ -26,6 +26,7 @@ var health : int = MAX_HEALTH:
 
 
 func _ready():
+	flash_sprite_2d.frame = [0,1].pick_random()
 	create_apples(randi_range(0, 2))
 
 
