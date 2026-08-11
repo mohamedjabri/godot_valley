@@ -93,5 +93,6 @@ func level_reset():
 	if tree.health >= 0 and tree.health < tree.MAX_HEALTH:
 		tree.reset()
 	raining = Data.forecast_rain
+	Data.forecast_rain = [true, false].pick_random()
 		
 	
