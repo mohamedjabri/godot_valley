@@ -31,6 +31,7 @@ func _process(_delta: float) -> void:
 	day_time_color_canvas.color = color
 	if Input.is_action_just_pressed("day_change"):
 		day_restart()
+	
 
 func _on_player_tool_use(tool: Enum.Tool, pos: Vector2) -> void:
 	var grid_coord: Vector2i = soil_layer.local_to_map(soil_layer.to_local(pos))
@@ -41,6 +42,9 @@ func _on_player_tool_use(tool: Enum.Tool, pos: Vector2) -> void:
 			var cell = grass_layer.get_cell_tile_data(grid_coord) as TileData
 			if cell and cell.get_custom_data("farmable"):
 				soil_layer.set_cells_terrain_connect([grid_coord], 0, 0)
+				
+			if raining:
+				water_soil_layer.set_cell(grid_coord, 0, Vector2i(randi_range(0,2), 0))
 			
 		Enum.Tool.WATER:
 			if has_soil:
@@ -94,5 +98,9 @@ func level_reset():
 		tree.reset()
 	raining = Data.forecast_rain
 	Data.forecast_rain = [true, false].pick_random()
+
+	if raining:
+		for cell in soil_layer.get_used_cells():
+			water_soil_layer.set_cell(cell, 0, Vector2i(randi_range(0,2), 0))
 		
 	

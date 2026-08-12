@@ -1,0 +1,37 @@
+[gd_scene format=4 uid="uid://cqhykhx23v1su"]
+
+[ext_resource type="Script" uid="uid://dorfc5hg7u6v6" path="res://scenes/levels/house.gd" id="1_g6yoe"]
+[ext_resource type="TileSet" uid="uid://cgipudyp1d8dp" path="res://scenes/levels/HouseTileSet.tres" id="1_mfwd8"]
+[ext_resource type="Texture2D" uid="uid://dpvg3yddudamn" path="res://graphics/tilesets/walls_floor_tile.png" id="2_bbbus"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jfia5"]
+texture = ExtResource("2_bbbus")
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_6m2vy"]
+sources/0 = SubResource("TileSetAtlasSource_jfia5")
+
+[node name="House" type="Node2D" unique_id=2115615615]
+script = ExtResource("1_g6yoe")
+
+[node name="FloorLayer" type="TileMapLayer" parent="." unique_id=617492557]
+tile_map_data = PackedByteArray("AAD6//z/AAAAAAAAAAD6//3/AAAAAAAAAAD6//7/AAAAAAAAAAD6////AAAAAAAAAAD7//z/AAAAAAAAAAD7//3/AAAAAAAAAAD7//7/AAAAAAAAAAD7////AAAAAAAAAAD8//z/AAAAAAAAAAD8//3/AAAAAAAAAAD8//7/AAAAAAAAAAD8////AAAAAAAAAAD9//z/AAAAAAAAAAD9//3/AAAAAAAAAAD9//7/AAAAAAAAAAD9////AAAAAAAAAAD+//z/AAAAAAAAAAD+//3/AAAAAAAAAAD+//7/AAAAAAAAAAD+////AAAAAAAAAAD///z/AAAAAAAAAAD///3/AAAAAAAAAAD///7/AAAAAAAAAAAAAPz/AAAAAAAAAAAAAP3/AAAAAAAAAAAAAP7/AAAAAAAAAAABAPz/AAAAAAAAAAABAP3/AAAAAAAAAAABAP7/AAAAAAAAAAD+//v/AAAAAAAAAAD8//v/AAAAAAAAAAD9//v/AAAAAAAAAAD7//v/AAAAAAAAAAD5//z/AAAAAAAAAAD5//3/AAAAAAAAAAD5//7/AAAAAAAAAAD5////AAAAAAAAAAD5/wAAAAAAAAAAAAD6/wAAAAAAAAAAAAD7/wAAAAAAAAAAAAD8/wAAAAAAAAAAAAD9/wAAAAAAAAAAAAD+/wAAAAAAAAAAAAD//wAAAAAAAAAAAAD/////AAAAAAAAAAAAAP//AAAAAAAAAAABAP//AAAAAAAAAAACAPz/AAAAAAAAAAACAP3/AAAAAAAAAAACAP7/AAAAAAAAAAACAP//AAAAAAAAAAD///v/AAAAAAAAAAAAAPv/AAAAAAAAAAABAPv/AAAAAAAAAAACAPv/AAAAAAAAAAD6//r/AAAAAAAAAAD7//r/AAAAAAAAAAD8//r/AAAAAAAAAAD9//r/AAAAAAAAAAD+//r/AAAAAAAAAAD///r/AAAAAAAAAAD5//v/AAAAAAAAAAD6//v/AAAAAAAAAAA=")
+tile_set = SubResource("TileSet_6m2vy")
+
+[node name="WallsLayer" type="TileMapLayer" parent="." unique_id=450300791]
+position = Vector2(-1, 0)
+tile_map_data = PackedByteArray("AAABAP//AAABAAIAAAABAP7/AAABAAEAAAABAP3/AAABAAEAAAABAPz/AAABAAEAAAABAPv/AAABAAAAAAAAAP//AAABAAIAAAAAAP7/AAABAAEAAAAAAP3/AAABAAEAAAAAAPz/AAABAAEAAAAAAPv/AAABAAAAAAD//wAAAAACAAIAAAD/////AAAFAAEAAAD///7/AAABAAEAAAD///3/AAABAAEAAAD///z/AAABAAEAAAD///v/AAAFAAIAAAD///r/AAACAAAAAAD+/wAAAAABAAIAAAD+////AAABAAEAAAD+//7/AAABAAEAAAD+//3/AAABAAEAAAD+//z/AAABAAEAAAD+//v/AAABAAEAAAD+//r/AAABAAAAAAD9/wAAAAAAAAQAAAD9////AAABAAEAAAD9//7/AAABAAEAAAD9//3/AAABAAEAAAD9//z/AAABAAEAAAD9//v/AAABAAEAAAD9//r/AAABAAAAAAD8/wAAAAABAAIAAAD8////AAABAAEAAAD8//7/AAABAAEAAAD8//3/AAABAAEAAAD8//z/AAABAAEAAAD8//v/AAABAAEAAAD8//r/AAABAAAAAAD7/wAAAAABAAIAAAD7////AAABAAEAAAD7//7/AAABAAEAAAD7//3/AAABAAEAAAD7//z/AAABAAEAAAD7//v/AAABAAEAAAD7//r/AAABAAAAAAD6/wAAAAABAAIAAAD6////AAABAAEAAAD6//7/AAABAAEAAAD6//3/AAABAAEAAAD6//z/AAABAAEAAAD6//v/AAAGAAIAAAD6//r/AAAAAAAAAAD5/wAAAAAAAAIAAAD5////AAAAAAEAAAD5//7/AAAAAAEAAAD5//3/AAAAAAEAAAD5//z/AAAAAAEAAAD5//v/AAAAAAAAAAACAP3/AAACAAEAAAACAP//AAACAAIAAAACAP7/AAACAAEAAAACAPz/AAACAAEAAAACAPv/AAACAAAAAAA=")
+tile_set = ExtResource("1_mfwd8")
+
+[node name="RoofLayer" type="TileMapLayer" parent="." unique_id=1333569028]
+
+[node name="HouseArea" type="Area2D" parent="." unique_id=1323604469]
+visible = false
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HouseArea" unique_id=1518637758]
+polygon = PackedVector2Array(-33, 9, -3, 9, -3, -7, 45, -7, 45, -78, -3, -78, -3, -94, -95, -94, -95, -79, -111, -79, -111, 9, -50, 9, -50, 28, -33, 28)
+
+[connection signal="body_entered" from="HouseArea" to="." method="_on_house_area_body_entered"]
+[connection signal="body_exited" from="HouseArea" to="." method="_on_house_area_body_exited"]
