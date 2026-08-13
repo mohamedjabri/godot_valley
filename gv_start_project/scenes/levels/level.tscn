@@ -939,6 +939,7 @@ tile_set = SubResource("TileSet_6fjal")
 metadata/_edit_lock_ = true
 
 [node name="RainFlootParticles" type="GPUParticles2D" parent="Layers" unique_id=976683352]
+z_index = -1
 material = SubResource("CanvasItemMaterial_dkt7q")
 position = Vector2(134, 435)
 emitting = false
@@ -952,7 +953,11 @@ metadata/_edit_lock_ = true
 
 [node name="Player" parent="Objects" unique_id=196750935 instance=ExtResource("2_b2cq8")]
 unique_name_in_owner = true
+y_sort_enabled = true
 position = Vector2(186, 342)
+
+[node name="House" parent="Objects" unique_id=2115615615 instance=ExtResource("10_qogh7")]
+position = Vector2(185, 190)
 
 [node name="Tree17" parent="Objects" unique_id=1233875226 instance=ExtResource("7_mbbpy")]
 position = Vector2(316, 687)
@@ -1207,32 +1212,31 @@ position = Vector2(101, 836)
 position = Vector2(64, 820)
 
 [node name="SimpleObject7" parent="Objects" unique_id=885638061 instance=ExtResource("8_ouxo3")]
+z_index = -1
 position = Vector2(-96, 516)
-size = 2
-style = 1
+size = 1
 random = true
 
 [node name="SimpleObject8" parent="Objects" unique_id=1470431339 instance=ExtResource("8_ouxo3")]
 position = Vector2(-92, 505)
-size = 2
+size = 3
 random = true
 
 [node name="SimpleObject9" parent="Objects" unique_id=654295574 instance=ExtResource("8_ouxo3")]
 position = Vector2(-123, 500)
-size = 2
+size = 3
 style = 1
 random = true
 
 [node name="SimpleObject10" parent="Objects" unique_id=1254567170 instance=ExtResource("8_ouxo3")]
 position = Vector2(-209, 580)
-size = 3
+size = 2
 style = 1
 random = true
 
 [node name="SimpleObject15" parent="Objects" unique_id=1276454160 instance=ExtResource("8_ouxo3")]
-z_index = -1
 position = Vector2(-205, 664)
-size = 1
+size = 3
 style = 1
 random = true
 
@@ -1240,19 +1244,18 @@ random = true
 z_index = -1
 position = Vector2(-157, 663)
 size = 1
-style = 1
 random = true
 
 [node name="SimpleObject17" parent="Objects" unique_id=1661223167 instance=ExtResource("8_ouxo3")]
 z_index = -1
 position = Vector2(-145, 683)
 size = 1
-style = 1
 random = true
 
 [node name="SimpleObject39" parent="Objects" unique_id=720099999 instance=ExtResource("8_ouxo3")]
+z_index = -1
 position = Vector2(-231, 170)
-size = 3
+size = 1
 style = 1
 random = true
 
@@ -1262,8 +1265,8 @@ size = 3
 random = true
 
 [node name="SimpleObject41" parent="Objects" unique_id=317899142 instance=ExtResource("8_ouxo3")]
+z_index = -1
 position = Vector2(-151, 155)
-size = 2
 random = true
 
 [node name="SimpleObject42" parent="Objects" unique_id=491580835 instance=ExtResource("8_ouxo3")]
@@ -1272,40 +1275,36 @@ size = 3
 random = true
 
 [node name="SimpleObject43" parent="Objects" unique_id=1498256311 instance=ExtResource("8_ouxo3")]
+z_index = -1
 position = Vector2(-240, 386)
-size = 3
+size = 1
 style = 1
 random = true
 
 [node name="SimpleObject44" parent="Objects" unique_id=1121507713 instance=ExtResource("8_ouxo3")]
 z_index = -1
 position = Vector2(-194, 364)
-size = 1
 random = true
 
 [node name="SimpleObject45" parent="Objects" unique_id=1700387330 instance=ExtResource("8_ouxo3")]
-z_index = -1
 position = Vector2(-240, 324)
-size = 1
+size = 2
 random = true
 
 [node name="SimpleObject46" parent="Objects" unique_id=1869776552 instance=ExtResource("8_ouxo3")]
 position = Vector2(-86, 345)
-size = 3
-style = 1
+size = 2
 random = true
 
 [node name="SimpleObject11" parent="Objects" unique_id=1122344845 instance=ExtResource("8_ouxo3")]
 z_index = -1
 position = Vector2(469, 125)
-size = 1
-style = 1
 random = true
 
 [node name="SimpleObject12" parent="Objects" unique_id=1780597832 instance=ExtResource("8_ouxo3")]
+z_index = -1
 position = Vector2(372, 122)
-size = 3
-style = 1
+size = 1
 random = true
 
 [node name="SimpleObject13" parent="Objects" unique_id=1198907302 instance=ExtResource("8_ouxo3")]
@@ -1314,69 +1313,71 @@ position = Vector2(403, 162)
 random = true
 
 [node name="SimpleObject14" parent="Objects" unique_id=669612885 instance=ExtResource("8_ouxo3")]
-z_index = -1
 position = Vector2(296, 139)
+size = 3
 random = true
 
 [node name="SimpleObject19" parent="Objects" unique_id=1252527771 instance=ExtResource("8_ouxo3")]
 z_index = -1
 position = Vector2(555, 329)
+size = 1
 style = 1
 random = true
 
 [node name="SimpleObject20" parent="Objects" unique_id=1245258897 instance=ExtResource("8_ouxo3")]
+z_index = -1
 position = Vector2(530, 254)
-size = 3
+style = 1
 random = true
 
 [node name="SimpleObject21" parent="Objects" unique_id=2002487866 instance=ExtResource("8_ouxo3")]
+z_index = -1
 position = Vector2(575, 89)
-size = 3
 random = true
 
 [node name="SimpleObject29" parent="Objects" unique_id=904945138 instance=ExtResource("8_ouxo3")]
-z_index = -1
 position = Vector2(582, 151)
+size = 2
+style = 1
 random = true
 
 [node name="SimpleObject22" parent="Objects" unique_id=382352062 instance=ExtResource("8_ouxo3")]
-z_index = -1
 position = Vector2(577, 143)
-size = 1
+size = 2
+style = 1
 random = true
 
 [node name="SimpleObject23" parent="Objects" unique_id=669718918 instance=ExtResource("8_ouxo3")]
+z_index = -1
 position = Vector2(476, 217)
-size = 2
 random = true
 
 [node name="SimpleObject24" parent="Objects" unique_id=633385093 instance=ExtResource("8_ouxo3")]
 position = Vector2(540, 578)
 size = 3
+style = 1
 random = true
 
 [node name="SimpleObject27" parent="Objects" unique_id=645868083 instance=ExtResource("8_ouxo3")]
-z_index = -1
 position = Vector2(501, 672)
+size = 3
 random = true
 
 [node name="SimpleObject28" parent="Objects" unique_id=160385226 instance=ExtResource("8_ouxo3")]
 z_index = -1
 position = Vector2(452, 675)
-style = 1
 random = true
 
 [node name="SimpleObject25" parent="Objects" unique_id=1484471146 instance=ExtResource("8_ouxo3")]
 z_index = -1
 position = Vector2(517, 636)
-size = 1
 style = 1
 random = true
 
 [node name="SimpleObject26" parent="Objects" unique_id=265848671 instance=ExtResource("8_ouxo3")]
-z_index = -1
 position = Vector2(537, 626)
-size = 1
+size = 2
+style = 1
 random = true
 
 [node name="SimpleObject32" parent="Objects" unique_id=1061702634 instance=ExtResource("8_ouxo3")]
@@ -1387,29 +1388,23 @@ style = 1
 random = true
 
 [node name="SimpleObject33" parent="Objects" unique_id=92985113 instance=ExtResource("8_ouxo3")]
-z_index = -1
 position = Vector2(423, 701)
-size = 1
-style = 1
+size = 3
 random = true
 
 [node name="SimpleObject37" parent="Objects" unique_id=645373923 instance=ExtResource("8_ouxo3")]
-z_index = -1
 position = Vector2(197, 659)
-size = 1
-style = 1
+size = 2
 random = true
 
 [node name="SimpleObject48" parent="Objects" unique_id=1501864917 instance=ExtResource("8_ouxo3")]
+z_index = -1
 position = Vector2(160, 818)
-size = 3
-style = 1
 random = true
 
 [node name="SimpleObject49" parent="Objects" unique_id=257310121 instance=ExtResource("8_ouxo3")]
+z_index = -1
 position = Vector2(204, 821)
-size = 2
-style = 1
 random = true
 
 [node name="SimpleObject50" parent="Objects" unique_id=484762344 instance=ExtResource("8_ouxo3")]
@@ -1420,71 +1415,66 @@ random = true
 [node name="SimpleObject51" parent="Objects" unique_id=1217905536 instance=ExtResource("8_ouxo3")]
 position = Vector2(191, 837)
 size = 2
-style = 1
 random = true
 
 [node name="SimpleObject52" parent="Objects" unique_id=143958077 instance=ExtResource("8_ouxo3")]
 z_index = -1
 position = Vector2(173, 842)
-size = 1
 style = 1
 random = true
 
 [node name="SimpleObject53" parent="Objects" unique_id=30510709 instance=ExtResource("8_ouxo3")]
+z_index = -1
 position = Vector2(132, 844)
-size = 3
+size = 1
 style = 1
 random = true
 
 [node name="SimpleObject54" parent="Objects" unique_id=1054326806 instance=ExtResource("8_ouxo3")]
 position = Vector2(120, 848)
-size = 2
+size = 3
+style = 1
 random = true
 
 [node name="SimpleObject55" parent="Objects" unique_id=1405017336 instance=ExtResource("8_ouxo3")]
 z_index = -1
 position = Vector2(121, 839)
-size = 1
 style = 1
 random = true
 
 [node name="SimpleObject56" parent="Objects" unique_id=552250013 instance=ExtResource("8_ouxo3")]
+z_index = -1
 position = Vector2(85, 825)
-size = 2
+size = 1
 style = 1
 random = true
 
 [node name="SimpleObject57" parent="Objects" unique_id=138098321 instance=ExtResource("8_ouxo3")]
-z_index = -1
 position = Vector2(96, 817)
-size = 1
+size = 3
 random = true
 
 [node name="SimpleObject58" parent="Objects" unique_id=270020794 instance=ExtResource("8_ouxo3")]
 z_index = -1
 position = Vector2(79, 843)
-size = 1
 random = true
 
 [node name="SimpleObject59" parent="Objects" unique_id=301128021 instance=ExtResource("8_ouxo3")]
 position = Vector2(79, 843)
 size = 2
+style = 1
 random = true
 
 [node name="SimpleObject47" parent="Objects" unique_id=1935300727 instance=ExtResource("8_ouxo3")]
 z_index = -1
 position = Vector2(123, 680)
-style = 1
-random = true
-
-[node name="SimpleObject38" parent="Objects" unique_id=691851296 instance=ExtResource("8_ouxo3")]
-z_index = -1
-position = Vector2(307, 660)
 size = 1
 random = true
 
-[node name="House" parent="Objects" unique_id=2115615615 instance=ExtResource("10_qogh7")]
-position = Vector2(185, 190)
+[node name="SimpleObject38" parent="Objects" unique_id=691851296 instance=ExtResource("8_ouxo3")]
+position = Vector2(307, 660)
+size = 3
+random = true
 
 [node name="Overlay" type="Node2D" parent="." unique_id=1856615701]
 metadata/_edit_lock_ = true
@@ -1526,3 +1516,4 @@ autostart = true
 
 [connection signal="diagnose" from="Objects/Player" to="." method="_on_player_diagnose"]
 [connection signal="tool_use" from="Objects/Player" to="." method="_on_player_tool_use"]
+[connection signal="reset_day" from="Objects/House" to="." method="_on_house_reset_day"]

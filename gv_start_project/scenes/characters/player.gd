@@ -13,6 +13,7 @@ signal diagnose
 @onready var move_state_machine = animation_tree.get("parameters/MoveStateMachine/playback")
 @onready var tool_state_machine = animation_tree.get("parameters/ToolStateMachine/playback")
 @onready var tool_ui: Control = $ToolUI
+@onready var ray_cast_2d: RayCast2D = $RayCast2D
 
 
 func _physics_process(_delta: float) -> void:
@@ -23,6 +24,8 @@ func _physics_process(_delta: float) -> void:
 	
 	if direction:
 		last_direction = direction
+		var ray_y = int(direction.y) if not direction.x else 0
+		ray_cast_2d.target_position = Vector2(direction.x,ray_y).normalized() * 20
 		
 	
 func move() -> void:
@@ -54,8 +57,11 @@ func get_basic_input():
 		tool_ui.reveal_seed_container()
 	
 	if Input.is_action_just_pressed("action"):
-		tool_state_machine.travel(Data.TOOL_STATE_ANIMATIONS[current_tool])
-		animation_tree.set("parameters/ToolOneShot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+		if not ray_cast_2d.get_collider():
+			tool_state_machine.travel(Data.TOOL_STATE_ANIMATIONS[current_tool])
+			animation_tree.set("parameters/ToolOneShot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+		else:
+			ray_cast_2d.get_collider().interact(self)
 		
 	if Input.is_action_just_pressed("diagnose"):
 		diagnose.emit()

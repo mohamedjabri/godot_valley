@@ -12,6 +12,7 @@ extends Node2D
 @onready var plant_info_container: Control = %PlantInfoContainer
 @onready var rain_floot_particles: GPUParticles2D = $Layers/RainFlootParticles
 @onready var rain_drops_particles: GPUParticles2D = $Overlay/RainDropsParticles
+@onready var house: Node2D = $Objects/House
 
 var plant_scene = preload("res://scenes/objects/plant.tscn")
 var plant_info_scene = preload("res://scenes/UI/plant_info.tscn")
@@ -98,9 +99,9 @@ func level_reset():
 		tree.reset()
 	raining = Data.forecast_rain
 	Data.forecast_rain = [true, false].pick_random()
-
 	if raining:
 		for cell in soil_layer.get_used_cells():
 			water_soil_layer.set_cell(cell, 0, Vector2i(randi_range(0,2), 0))
 		
-	
+func _on_house_reset_day() -> void:
+	day_restart()
