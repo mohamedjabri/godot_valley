@@ -6,6 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://cwbhys0nypuq" path="res://graphics/tilesets/roof.png" id="4_jfia5"]
 [ext_resource type="PackedScene" uid="uid://dxxa2cdh5ipd1" path="res://scenes/levels/tv.tscn" id="5_ap60n"]
 [ext_resource type="PackedScene" uid="uid://b8llmw8weehkr" path="res://scenes/levels/bed.tscn" id="6_4yql1"]
+[ext_resource type="Texture2D" uid="uid://baujryqqid5kt" path="res://graphics/objects/bookshelf.png" id="7_e6eqm"]
+[ext_resource type="Texture2D" uid="uid://dvaxmp1m08kte" path="res://graphics/objects/carpet.png" id="8_dg1t0"]
+[ext_resource type="Texture2D" uid="uid://c6gdvovhpj0oj" path="res://graphics/objects/plant.png" id="9_dvuk3"]
+[ext_resource type="Texture2D" uid="uid://b1eeactik3oq3" path="res://graphics/objects/table.png" id="10_ctgqc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jfia5"]
 texture = ExtResource("2_bbbus")
@@ -38,22 +42,28 @@ texture = ExtResource("4_jfia5")
 [sub_resource type="TileSet" id="TileSet_o8vy0"]
 sources/0 = SubResource("TileSetAtlasSource_ap60n")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dkt7q"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6fjal"]
+size = Vector2(6, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_12r1r"]
+
 [node name="House" type="Node2D" unique_id=2115615615]
 y_sort_enabled = true
 script = ExtResource("1_g6yoe")
 
 [node name="FloorLayer" type="TileMapLayer" parent="." unique_id=617492557]
-z_index = -1
+z_index = -2
 tile_set = SubResource("TileSet_6m2vy")
 
 [node name="WallsLayer" type="TileMapLayer" parent="." unique_id=450300791]
 y_sort_enabled = true
 position = Vector2(-1, 0)
-tile_map_data = PackedByteArray("AAABAP//AAABAAIAAAABAP7/AAABAAEAAAABAP3/AAABAAEAAAABAPz/AAABAAEAAAABAPv/AAABAAAAAAAAAP//AAABAAIAAAAAAP7/AAABAAEAAAAAAP3/AAABAAEAAAAAAPz/AAABAAEAAAAAAPv/AAABAAAAAAD//wAAAAACAAIAAAD/////AAAFAAEAAAD///7/AAABAAEAAAD///3/AAABAAEAAAD///z/AAABAAEAAAD///v/AAAFAAIAAAD///r/AAACAAAAAAD+/wAAAAABAAIAAAD+////AAABAAEAAAD+//7/AAABAAEAAAD+//3/AAABAAEAAAD+//z/AAABAAEAAAD+//v/AAABAAEAAAD+//r/AAABAAAAAAD9/wAAAAAAAAQAAAD9////AAABAAEAAAD9//7/AAABAAEAAAD9//3/AAABAAEAAAD9//z/AAABAAEAAAD9//v/AAABAAEAAAD9//r/AAABAAAAAAD8/wAAAAABAAIAAAD8////AAABAAEAAAD8//7/AAABAAEAAAD8//3/AAABAAEAAAD8//z/AAABAAEAAAD8//v/AAABAAEAAAD8//r/AAABAAAAAAD7/wAAAAABAAIAAAD7////AAABAAEAAAD7//7/AAABAAEAAAD7//3/AAABAAEAAAD7//z/AAABAAEAAAD7//v/AAABAAEAAAD7//r/AAABAAAAAAD6/wAAAAABAAIAAAD6////AAABAAEAAAD6//7/AAABAAEAAAD6//3/AAABAAEAAAD6//z/AAABAAEAAAD6//v/AAAGAAIAAAD6//r/AAAAAAAAAAD5/wAAAAAAAAIAAAD5////AAAAAAEAAAD5//7/AAAAAAEAAAD5//3/AAAAAAEAAAD5//z/AAAAAAEAAAD5//v/AAAAAAAAAAACAP3/AAACAAEAAAACAP//AAACAAIAAAACAPz/AAACAAEAAAACAPv/AAACAAAAAAACAP7/AAACAAEAAAA=")
+tile_map_data = PackedByteArray("AAABAP//AAABAAIAAAABAP7/AAABAAEAAAABAP3/AAABAAEAAAABAPz/AAABAAEAAAABAPv/AAABAAAAAAAAAP//AAABAAIAAAAAAP7/AAABAAEAAAAAAP3/AAABAAEAAAAAAPz/AAABAAEAAAAAAPv/AAABAAAAAAD//wAAAAACAAIAAAD/////AAAFAAEAAAD///7/AAABAAEAAAD///3/AAABAAEAAAD///v/AAAFAAIAAAD///r/AAACAAAAAAD+/wAAAAABAAIAAAD+////AAABAAEAAAD+//7/AAABAAEAAAD+//3/AAABAAEAAAD+//z/AAABAAEAAAD+//v/AAABAAEAAAD+//r/AAABAAAAAAD9/wAAAAAAAAQAAAD9////AAABAAEAAAD9//7/AAABAAEAAAD9//3/AAABAAEAAAD9//z/AAABAAEAAAD9//v/AAABAAEAAAD9//r/AAABAAAAAAD8/wAAAAABAAIAAAD8////AAABAAEAAAD8//7/AAABAAEAAAD8//3/AAABAAEAAAD8//z/AAABAAEAAAD8//v/AAABAAEAAAD8//r/AAABAAAAAAD7/wAAAAABAAIAAAD7////AAABAAEAAAD7//7/AAABAAEAAAD7//3/AAABAAEAAAD7//z/AAABAAEAAAD7//v/AAABAAEAAAD7//r/AAABAAAAAAD6/wAAAAABAAIAAAD6////AAABAAEAAAD6//7/AAABAAEAAAD6//3/AAABAAEAAAD6//z/AAABAAEAAAD6//v/AAAGAAIAAAD6//r/AAAAAAAAAAD5/wAAAAAAAAIAAAD5////AAAAAAEAAAD5//7/AAAAAAEAAAD5//3/AAAAAAEAAAD5//z/AAAAAAEAAAD5//v/AAAAAAAAAAACAP3/AAACAAEAAAACAP//AAACAAIAAAACAPz/AAACAAEAAAACAPv/AAACAAAAAAACAP7/AAACAAEAAAD///z/AAABAAEAAAA=")
 tile_set = ExtResource("1_mfwd8")
 
 [node name="RoofLayer" type="TileMapLayer" parent="." unique_id=1333569028]
-visible = false
 z_index = 2
 tile_map_data = PackedByteArray("AAD5/wAAAAAAAAUAAAD6/wAAAAABAAUAAAD7/wAAAAABAAUAAAD8/wAAAAABAAUAAAD9/wAAAAABAAUAAAD+/wAAAAABAAUAAAD//wAAAAACAAUAAAAAAP//AAABAAUAAAABAP//AAABAAUAAAACAP//AAACAAUAAAACAP7/AAACAAMAAAABAP7/AAABAAMAAAAAAP7/AAABAAMAAAD///7/AAABAAMAAAD+//7/AAABAAMAAAD9//7/AAABAAMAAAD8//7/AAABAAMAAAD7//7/AAABAAMAAAD6//7/AAABAAMAAAD5//7/AAAAAAMAAAD/////AAABAAQAAAD+////AAABAAQAAAD9////AAABAAQAAAD8////AAABAAQAAAD7////AAABAAQAAAD6////AAABAAQAAAD5////AAAAAAQAAAACAPz/AAACAAIAAAACAPv/AAACAAEAAAACAPr/AAACAAAAAAABAPr/AAABAAAAAAAAAPr/AAABAAAAAAD///n/AAABAAAAAAD+//n/AAABAAAAAAD9//n/AAABAAAAAAD8//n/AAABAAAAAAD7//n/AAABAAAAAAD6//n/AAABAAAAAAD5//r/AAAAAAAAAAD5//z/AAAAAAIAAAD5//v/AAAAAAEAAAD6//z/AAABAAIAAAD7//z/AAABAAIAAAD8//z/AAABAAIAAAD9//z/AAABAAIAAAD+//z/AAABAAIAAAD///z/AAABAAIAAAAAAPz/AAABAAIAAAABAPz/AAABAAIAAAABAPv/AAABAAEAAAAAAPv/AAABAAEAAAD///v/AAABAAEAAAD+//v/AAABAAEAAAD9//v/AAABAAEAAAD8//v/AAABAAEAAAD7//v/AAABAAEAAAD6//v/AAABAAEAAAD6//r/AAABAAEAAAD7//r/AAABAAEAAAD8//r/AAABAAEAAAD9//r/AAABAAEAAAD+//r/AAABAAEAAAD///r/AAABAAEAAAACAP3/AAACAAMAAAABAP3/AAABAAMAAAAAAP3/AAABAAMAAAD///3/AAABAAMAAAD+//3/AAABAAMAAAD9//3/AAABAAMAAAD8//3/AAABAAMAAAD7//3/AAABAAMAAAD6//3/AAABAAMAAAD5//3/AAAAAAMAAAA=")
 tile_set = SubResource("TileSet_o8vy0")
@@ -67,10 +77,116 @@ collision_mask = 2
 polygon = PackedVector2Array(-33, 9, -4, 9, -4, -7, 45, -7, 45, -78, -3, -78, -3, -94, -95, -94, -95, -79, -110, -79, -110, 9, -49, 10, -49, 23, -33, 23)
 
 [node name="TV" parent="." unique_id=1131857067 instance=ExtResource("5_ap60n")]
-position = Vector2(-84, -77)
+position = Vector2(-81, -79)
 
 [node name="Bed" parent="." unique_id=962509407 instance=ExtResource("6_4yql1")]
-position = Vector2(-14, -77)
+position = Vector2(23, -60)
+
+[node name="BookShelf" type="StaticBody2D" parent="." unique_id=2107496583]
+position = Vector2(-21, -83)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="BookShelf" unique_id=2109224386]
+texture = ExtResource("7_e6eqm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BookShelf" unique_id=1492883825]
+shape = SubResource("RectangleShape2D_dkt7q")
+
+[node name="BookShelf2" type="StaticBody2D" parent="." unique_id=278460526]
+position = Vector2(-53, -83)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="BookShelf2" unique_id=883127170]
+texture = ExtResource("7_e6eqm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BookShelf2" unique_id=255234519]
+shape = SubResource("RectangleShape2D_dkt7q")
+
+[node name="Carpet" type="Sprite2D" parent="." unique_id=700697351]
+z_index = -1
+position = Vector2(23, -55)
+texture = ExtResource("8_dg1t0")
+metadata/_edit_lock_ = true
+
+[node name="Carpet2" type="Sprite2D" parent="." unique_id=1874211102]
+z_index = -1
+position = Vector2(23, -23)
+texture = ExtResource("8_dg1t0")
+
+[node name="Carpet3" type="Sprite2D" parent="." unique_id=709685098]
+z_index = -1
+position = Vector2(-51, -37)
+texture = ExtResource("8_dg1t0")
+
+[node name="Plant" type="StaticBody2D" parent="." unique_id=1481655720]
+position = Vector2(-102, -66)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Plant" unique_id=336532721]
+texture = ExtResource("9_dvuk3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Plant" unique_id=1179553294]
+shape = SubResource("RectangleShape2D_6fjal")
+
+[node name="Plant2" type="StaticBody2D" parent="." unique_id=538448810]
+position = Vector2(-103, -2)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Plant2" unique_id=571230185]
+texture = ExtResource("9_dvuk3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Plant2" unique_id=1125810485]
+shape = SubResource("RectangleShape2D_6fjal")
+
+[node name="Plant3" type="StaticBody2D" parent="." unique_id=964812778]
+position = Vector2(-11, -2)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Plant3" unique_id=666371627]
+texture = ExtResource("9_dvuk3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Plant3" unique_id=1356318176]
+shape = SubResource("RectangleShape2D_6fjal")
+
+[node name="Plant6" type="StaticBody2D" parent="." unique_id=1754021578]
+position = Vector2(37, -15)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Plant6" unique_id=1106998457]
+texture = ExtResource("9_dvuk3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Plant6" unique_id=780298394]
+shape = SubResource("RectangleShape2D_6fjal")
+
+[node name="Plant5" type="StaticBody2D" parent="." unique_id=1373430791]
+position = Vector2(-77, -2)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Plant5" unique_id=1349929810]
+texture = ExtResource("9_dvuk3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Plant5" unique_id=97861896]
+shape = SubResource("RectangleShape2D_6fjal")
+
+[node name="Plant4" type="StaticBody2D" parent="." unique_id=135203933]
+position = Vector2(-103, -39)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Plant4" unique_id=1348666108]
+texture = ExtResource("9_dvuk3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Plant4" unique_id=1343990096]
+shape = SubResource("RectangleShape2D_6fjal")
+
+[node name="Table" type="StaticBody2D" parent="." unique_id=625251201]
+position = Vector2(-51, -38)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Table" unique_id=1408466071]
+texture = ExtResource("10_ctgqc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Table" unique_id=1477356586]
+shape = SubResource("RectangleShape2D_12r1r")
 
 [connection signal="body_entered" from="HouseArea" to="." method="_on_house_area_body_entered"]
 [connection signal="body_exited" from="HouseArea" to="." method="_on_house_area_body_exited"]

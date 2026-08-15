@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://duu6unox66m8d"]
+
+[ext_resource type="PackedScene" uid="uid://7r64eqnfq7fl" path="res://scenes/machines/machine.tscn" id="1_6h70u"]
+[ext_resource type="Texture2D" uid="uid://cv5mm4i7scrv6" path="res://graphics/machines/scarecrow.png" id="2_uphg8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_seoqs"]
+atlas = ExtResource("2_uphg8")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jlre4"]
+atlas = ExtResource("2_uphg8")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7urq5"]
+atlas = ExtResource("2_uphg8")
+region = Rect2(16, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_djyre"]
+atlas = ExtResource("2_uphg8")
+region = Rect2(32, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dqv48"]
+atlas = ExtResource("2_uphg8")
+region = Rect2(48, 0, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6m2vy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_seoqs")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jlre4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7urq5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_djyre")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dqv48")
+}],
+"loop": 1,
+"name": &"scare",
+"speed": 5.0
+}]
+
+[node name="ScareCrow" unique_id=84282391 instance=ExtResource("1_6h70u")]
+script = null
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="1" unique_id=1963571599]
+sprite_frames = SubResource("SpriteFrames_6m2vy")
+autoplay = "default"

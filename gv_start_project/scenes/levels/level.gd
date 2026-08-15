@@ -8,7 +8,7 @@ extends Node2D
 @onready var day_timer: Timer = $Timers/DayTimer
 @onready var day_time_color_canvas: CanvasModulate = $Overlay/DayTimeColorCanvas
 @onready var day_transition_layer: ColorRect = %DayTransitionLayer
-@onready var tree: StaticBody2D = $Objects/Tree
+@onready var tree: StaticBody2D = $Objects/Trees/Tree
 @onready var plant_info_container: Control = %PlantInfoContainer
 @onready var rain_floot_particles: GPUParticles2D = $Layers/RainFlootParticles
 @onready var rain_drops_particles: GPUParticles2D = $Overlay/RainDropsParticles
@@ -53,7 +53,7 @@ func _on_player_tool_use(tool: Enum.Tool, pos: Vector2) -> void:
 		
 		Enum.Tool.FISH:
 			if not grid_coord in grass_layer.get_used_cells():
-				print("fishing")
+				player.start_fishing()
 		
 		Enum.Tool.SEED:
 			if has_soil and grid_coord not in used_cells:

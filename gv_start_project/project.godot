@@ -22,7 +22,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Enum="*res://global/enums.gd"
-Data="*res://global/data.gd"
+Data="*uid://d1uhsv5tkrg2h"
 
 [display]
 
