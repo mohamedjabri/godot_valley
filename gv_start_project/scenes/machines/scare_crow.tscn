@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://duu6unox66m8d"]
 
 [ext_resource type="PackedScene" uid="uid://7r64eqnfq7fl" path="res://scenes/machines/machine.tscn" id="1_6h70u"]
+[ext_resource type="Script" uid="uid://yc5fpu5p6wdo" path="res://scenes/machines/scare_crow.gd" id="2_seoqs"]
 [ext_resource type="Texture2D" uid="uid://cv5mm4i7scrv6" path="res://graphics/machines/scarecrow.png" id="2_uphg8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_seoqs"]
@@ -52,8 +53,14 @@ animations = [{
 }]
 
 [node name="ScareCrow" unique_id=84282391 instance=ExtResource("1_6h70u")]
-script = null
+script = ExtResource("2_seoqs")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="1" unique_id=1963571599]
+position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_6m2vy")
 autoplay = "default"
+
+[node name="Timer" type="Timer" parent="." index="2" unique_id=637557007]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

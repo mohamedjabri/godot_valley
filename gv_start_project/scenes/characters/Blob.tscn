@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://b466fqj7w4mne" path="res://graphics/characters/blob.png" id="1_wva3d"]
 [ext_resource type="Shader" uid="uid://b6nm5dtkeitqy" path="res://shaders/flash.tres" id="2_ahel4"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hbn7o"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ahel4"]
 resource_local_to_scene = true
 shader = ExtResource("2_ahel4")
 shader_parameter/Color = Color(1, 1, 1, 1)
@@ -69,13 +69,13 @@ _data = {
 &"move": SubResource("Animation_ahel4")
 }
 
-[node name="Blob" type="CharacterBody2D" unique_id=2073172727]
+[node name="Blob" type="CharacterBody2D" unique_id=2073172727 groups=["Blobs", "Objects"]]
 collision_layer = 4
 collision_mask = 5
 script = ExtResource("1_ahel4")
 
 [node name="FlashSprite2D" parent="." unique_id=1424005451 instance=ExtResource("1_q4685")]
-material = SubResource("ShaderMaterial_hbn7o")
+material = SubResource("ShaderMaterial_ahel4")
 position = Vector2(0, -2)
 texture = ExtResource("1_wva3d")
 hframes = 14

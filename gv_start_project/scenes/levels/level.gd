@@ -13,9 +13,24 @@ extends Node2D
 @onready var rain_floot_particles: GPUParticles2D = $Layers/RainFlootParticles
 @onready var rain_drops_particles: GPUParticles2D = $Overlay/RainDropsParticles
 @onready var house: Node2D = $Objects/House
+@onready var scare_crow: Machine = $Objects/ScareCrow
+@onready var machine_preview_sprite: Sprite2D = $Overlay/MachinePreviewSprite
 
 var plant_scene = preload("res://scenes/objects/plant.tscn")
 var plant_info_scene = preload("res://scenes/UI/plant_info.tscn")
+var projectile_scene = preload("res://scenes/machines/projectile.tscn")
+var machine_scenes = {
+	Enum.Machine.SPRINKLER: preload("res://scenes/machines/sprinkler.tscn"),
+	Enum.Machine.SCARECROW: preload("res://scenes/machines/scare_crow.tscn"),
+	Enum.Machine.FISHER: preload("res://scenes/machines/fisher.tscn")
+}
+
+const MACHINE_PREVIEW_TEXTURES = {
+	Enum.Machine.SPRINKLER: {'texture':preload("res://graphics/icons/sprinkler.png"), 'offset': Vector2i(0,0)},
+	Enum.Machine.FISHER: {'texture':preload("res://graphics/icons/fisher.png"), 'offset': Vector2i(0,-4)},
+	Enum.Machine.SCARECROW: {'texture':preload("res://graphics/icons/scarecrow.png"), 'offset': Vector2i(0,-4)},
+	Enum.Machine.DELETE: {'texture':preload("res://graphics/icons/delete.png"), 'offset': Vector2i(0,0)}}
+
 var used_cells: Array[Vector2i]
 var raining: bool:
 	set(value):
@@ -25,6 +40,7 @@ var raining: bool:
 		
 func _ready() -> void:
 	Data.forecast_rain = [true, false].pick_random()
+	scare_crow.connect("shoot_projectile", create_projectile)
 		
 func _process(_delta: float) -> void:
 	var daytime_point = 1 - (day_timer.time_left / day_timer.wait_time)
@@ -32,6 +48,9 @@ func _process(_delta: float) -> void:
 	day_time_color_canvas.color = color
 	if Input.is_action_just_pressed("day_change"):
 		day_restart()
+		
+	machine_preview_sprite.visible = player.current_state == Enum.State.BUILDING
+	machine_preview_sprite.position = player.get_machine_coord() + MACHINE_PREVIEW_TEXTURES[player.current_machine]["offset"]
 	
 
 func _on_player_tool_use(tool: Enum.Tool, pos: Vector2) -> void:
@@ -80,13 +99,21 @@ func _on_player_tool_use(tool: Enum.Tool, pos: Vector2) -> void:
 func _on_player_diagnose() -> void:
 	plant_info_container.visible = not plant_info_container.visible
 	
+func _on_player_build(current_machine: int) -> void:
+	if current_machine != Enum.Machine.DELETE:
+		var machine = machine_scenes[current_machine].instantiate()
+		machine.setup(player.get_machine_coord(), self, $Objects)
+
+func _on_player_machine_change(current_machine: int) -> void:
+	machine_preview_sprite.texture = MACHINE_PREVIEW_TEXTURES[current_machine]["texture"]
+
 func day_restart():
 	var tween = create_tween()
 	tween.tween_property(day_transition_layer.material, "shader_parameter/progress", 1.0, 1.0)
 	tween.tween_interval(0.5)
 	tween.tween_callback(level_reset)
 	tween.tween_property(day_transition_layer.material, "shader_parameter/progress", 0.0, 1.0)
-	
+
 func level_reset():
 	for plant in get_tree().get_nodes_in_group("Plants"):
 		var watered: bool = plant.coord in water_soil_layer.get_used_cells()
@@ -102,6 +129,11 @@ func level_reset():
 	if raining:
 		for cell in soil_layer.get_used_cells():
 			water_soil_layer.set_cell(cell, 0, Vector2i(randi_range(0,2), 0))
-		
+
 func _on_house_reset_day() -> void:
 	day_restart()
+
+func create_projectile(start_pos: Vector2, dir: Vector2):
+	var projectile = projectile_scene.instantiate()
+	projectile.setup(start_pos, dir)
+	$Objects.add_child(projectile)

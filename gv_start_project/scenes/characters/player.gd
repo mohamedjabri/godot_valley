@@ -6,10 +6,13 @@ var current_seed: Enum.Seed = Enum.Seed.TOMATO
 var can_move: bool = true
 var current_state: Enum.State
 var current_style: Enum.Style
+var current_machine: Enum.Machine
 @export var fish_bar_speed: float = 0.5
 
 signal tool_use(tool: Enum.Tool, pos: Vector2)
 signal diagnose
+signal build(current_machine: Enum.Machine)
+signal machine_change(current_machine: Enum.Machine)
 
 @export var speed: int = 50
 @onready var animation_tree: AnimationTree = %AnimationTree
@@ -30,18 +33,21 @@ func _physics_process(_delta: float) -> void:
 				get_basic_input()
 		Enum.State.FISHING:
 			get_fishing_input()
+		Enum.State.BUILDING:
+			get_building_input()
+			move()
+			animate()
 	
 	if direction:
 		last_direction = direction
 		var ray_y = int(direction.y) if not direction.x else 0
 		ray_cast_2d.target_position = Vector2(direction.x,ray_y).normalized() * 20
-		
-	
+
 func move() -> void:
 	direction = Input.get_vector("left", "right", "up", "down")
 	velocity = direction * speed
 	move_and_slide()
-	
+
 func animate() -> void:
 	if direction:
 		move_state_machine.travel("Walk")
@@ -79,7 +85,10 @@ func get_basic_input():
 		current_style = posmod(current_style + 1, Enum.Style.size()) as Enum.Style
 		print(Enum.Style.size())
 		sprite_2d.texture = Data.PLAYER_SKINS[current_style]
-	
+		
+	if Input.is_action_just_pressed("build"):
+		current_state = Enum.State.BUILDING
+
 func get_fishing_input():
 	
 
@@ -94,11 +103,23 @@ func get_fishing_input():
 		fishing_game.y_range / 2.0 - (fishing_game.sprite_size.y/2 - 2)
 	)
 
+func get_building_input():
+	if Input.is_action_just_pressed("build"):
+		current_state = Enum.State.DEFAULT
+	
+	if Input.is_action_just_pressed("tool_forward") or Input.is_action_just_pressed("tool_backward"):
+		var dir = Input.get_axis("tool_backward", "tool_forward")
+		current_machine = posmod(current_machine + int(dir), Enum.Machine.size()) as Enum.Machine
+		machine_change.emit(current_machine)
+	
+	if Input.is_action_just_pressed("action"):
+		build.emit(current_machine)
+
 func start_fishing():
 	$FishingGame.reveal()
 	current_state = Enum.State.FISHING
 	animation_tree.set("parameters/FishBlend/blend_amount", 1)
-	
+
 func stop_fishing():
 	can_move = true
 	current_state = Enum.State.DEFAULT
@@ -107,10 +128,12 @@ func stop_fishing():
 func tool_use_emit():
 	tool_use.emit(current_tool, position + last_direction * 16 + Vector2(0, 4))
 
-
 func _on_animation_tree_animation_started(_anim_name: StringName) -> void:
 	can_move = false
 
-
 func _on_animation_tree_animation_finished(_anim_name: StringName) -> void:
 	can_move = true
+
+func get_machine_coord() -> Vector2i:
+	var pos = position + last_direction * 20 + Vector2(0, 8)
+	return Vector2i(pos.x / Data.TILE_SIZE, pos.y / Data.TILE_SIZE) * Data.TILE_SIZE + Vector2i(8,8)

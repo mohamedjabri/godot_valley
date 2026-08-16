@@ -27,12 +27,12 @@ func _physics_process(delta: float) -> void:
 		velocity = direction * SPEED
 	move_and_slide()
 
-func hit(tool: Enum.Tool) -> void:
+func hit(tool: Enum.Tool, dir: Vector2 = Vector2.ZERO) -> void:
 	if tool == Enum.Tool.SWORD:
 		flash_sprite_2d.flash()
 		health -= 1
-		var direction := global_position.direction_to(player.global_position)
-		velocity = -1 * direction * KNOCKBACK_SPEED
+		var knockback_dir := dir if dir != Vector2.ZERO else global_position.direction_to(player.global_position)
+		velocity = -1 * knockback_dir * KNOCKBACK_SPEED
 		is_knocked_back = true
 		knockback_timer.start(0.2)
 		
