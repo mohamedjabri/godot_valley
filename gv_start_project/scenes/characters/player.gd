@@ -136,4 +136,7 @@ func _on_animation_tree_animation_finished(_anim_name: StringName) -> void:
 
 func get_machine_coord() -> Vector2i:
 	var pos = position + last_direction * 20 + Vector2(0, 8)
-	return Vector2i(pos.x / Data.TILE_SIZE, pos.y / Data.TILE_SIZE) * Data.TILE_SIZE + Vector2i(8,8)
+	var coord = Vector2i(pos.x / Data.TILE_SIZE, pos.y / Data.TILE_SIZE)
+	coord.x += -1 if pos.x < 0 else 0
+	coord.y += -1 if pos.y < 0 else 0
+	return coord * Data.TILE_SIZE + Vector2i(8,8)

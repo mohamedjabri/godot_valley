@@ -5,6 +5,7 @@ extends Node2D
 @onready var player: CharacterBody2D = $Objects/Player
 @export var daytime_color: Gradient
 @export var daytime_color_rain: Color
+@onready var blob_spawn_timer: Timer = $Timers/BlobSpawnTimer
 @onready var day_timer: Timer = $Timers/DayTimer
 @onready var day_time_color_canvas: CanvasModulate = $Overlay/DayTimeColorCanvas
 @onready var day_transition_layer: ColorRect = %DayTransitionLayer
@@ -13,12 +14,15 @@ extends Node2D
 @onready var rain_floot_particles: GPUParticles2D = $Layers/RainFlootParticles
 @onready var rain_drops_particles: GPUParticles2D = $Overlay/RainDropsParticles
 @onready var house: Node2D = $Objects/House
-@onready var scare_crow: Machine = $Objects/ScareCrow
+#@onready var scare_crow: Machine = $Objects/ScareCrow
 @onready var machine_preview_sprite: Sprite2D = $Overlay/MachinePreviewSprite
+@onready var blob_spawn_markers: Node2D = $Objects/BlobSpawnMarkers
+@onready var blobs: Node2D = $Objects/Blobs
 
 var plant_scene = preload("res://scenes/objects/plant.tscn")
 var plant_info_scene = preload("res://scenes/UI/plant_info.tscn")
 var projectile_scene = preload("res://scenes/machines/projectile.tscn")
+var blob_scene = preload("res://scenes/characters/Blob.tscn")
 var machine_scenes = {
 	Enum.Machine.SPRINKLER: preload("res://scenes/machines/sprinkler.tscn"),
 	Enum.Machine.SCARECROW: preload("res://scenes/machines/scare_crow.tscn"),
@@ -37,11 +41,11 @@ var raining: bool:
 		raining = value
 		rain_floot_particles.emitting = value
 		rain_drops_particles.emitting = value
-		
+
 func _ready() -> void:
 	Data.forecast_rain = [true, false].pick_random()
-	scare_crow.connect("shoot_projectile", create_projectile)
-		
+	#scare_crow.connect("shoot_projectile", create_projectile)
+
 func _process(_delta: float) -> void:
 	var daytime_point = 1 - (day_timer.time_left / day_timer.wait_time)
 	var color = daytime_color.sample(daytime_point).lerp(daytime_color_rain, 0.5 if raining else 0.0)
@@ -51,7 +55,8 @@ func _process(_delta: float) -> void:
 		
 	machine_preview_sprite.visible = player.current_state == Enum.State.BUILDING
 	machine_preview_sprite.position = player.get_machine_coord() + MACHINE_PREVIEW_TEXTURES[player.current_machine]["offset"]
-	
+	if blob_spawn_timer.time_left == 0:
+		create_blobs()
 
 func _on_player_tool_use(tool: Enum.Tool, pos: Vector2) -> void:
 	var grid_coord: Vector2i = soil_layer.local_to_map(soil_layer.to_local(pos))
@@ -89,13 +94,20 @@ func _on_player_tool_use(tool: Enum.Tool, pos: Vector2) -> void:
 					used_cells.erase(grid_coord)
 					plant_info_container.remove(plant_info)
 				)
+				plant.updated.connect(func():
+					plant_info.update_plant_info(plant.res)
+				)
+				for blob in blobs.get_children():
+					if not blob.plant_target:
+						blob.plant_target = plant
+						blob.exploded.connect(plant.take_damage)
 
 				
 		Enum.Tool.AXE, Enum.Tool.SWORD:
 			for object in get_tree().get_nodes_in_group("Objects"):
 				if object.position.distance_to(pos) < 20:
 					object.hit(tool)
-				
+
 func _on_player_diagnose() -> void:
 	plant_info_container.visible = not plant_info_container.visible
 	
@@ -103,6 +115,10 @@ func _on_player_build(current_machine: int) -> void:
 	if current_machine != Enum.Machine.DELETE:
 		var machine = machine_scenes[current_machine].instantiate()
 		machine.setup(player.get_machine_coord(), self, $Objects)
+		
+	else:
+		for machine in get_tree().get_nodes_in_group("Machines"):
+			machine.delete(player.get_machine_coord() / 16)
 
 func _on_player_machine_change(current_machine: int) -> void:
 	machine_preview_sprite.texture = MACHINE_PREVIEW_TEXTURES[current_machine]["texture"]
@@ -118,8 +134,6 @@ func level_reset():
 	for plant in get_tree().get_nodes_in_group("Plants"):
 		var watered: bool = plant.coord in water_soil_layer.get_used_cells()
 		plant.manage(watered)
-	for info in plant_info_container.get_infos():
-		info.update_plant_info(info.res)
 	water_soil_layer.clear()
 	day_timer.start()
 	if tree.health >= 0 and tree.health < tree.MAX_HEALTH:
@@ -137,3 +151,29 @@ func create_projectile(start_pos: Vector2, dir: Vector2):
 	var projectile = projectile_scene.instantiate()
 	projectile.setup(start_pos, dir)
 	$Objects.add_child(projectile)
+
+func water_plants(coord: Vector2i):
+	const SOIL_DIRECTIONS = [
+		Vector2i(-1, -1), Vector2i(0, -1), Vector2i(1, -1),
+		Vector2i(-1,  0),Vector2i(1,0), Vector2i(-1,  1), 
+		Vector2i(0,  1), Vector2i(1,  1)]
+	for dir in SOIL_DIRECTIONS:
+		var cell = coord + dir
+		if cell in soil_layer.get_used_cells():
+			water_soil_layer.set_cell(cell, 0, Vector2i(randi_range(0,2), 0))
+
+func create_blobs():
+	if get_tree().get_nodes_in_group("Plants"):
+		blob_spawn_timer.start()
+		var random_plant = get_tree().get_nodes_in_group("Plants").pick_random()
+		var blob_markers = blob_spawn_markers.get_children().duplicate(true)
+		var pos_marker = blob_markers.pop_at(randi_range(0, blob_markers.size() - 1 ))
+		var blob = blob_scene.instantiate()
+		blob.position = pos_marker.position
+		blobs.add_child(blob)
+		blob.player = player
+		blob.plant_target = random_plant
+		blob.exploded.connect(random_plant.take_damage)
+
+func _on_blob_spawn_timer_timeout() -> void:
+	create_blobs()

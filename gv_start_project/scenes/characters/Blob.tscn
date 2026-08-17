@@ -12,7 +12,7 @@ shader_parameter/Color = Color(1, 1, 1, 1)
 shader_parameter/Progress = 0.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6m2vy"]
-radius = 5.0
+radius = 4.0
 
 [sub_resource type="Animation" id="Animation_hbn7o"]
 length = 0.001

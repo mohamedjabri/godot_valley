@@ -9,6 +9,7 @@ class_name PlantResource extends Resource
 
 var age: float
 var death_counter: int = 0
+var damage_counter: float = 0.0
 
 func grow(plant_sprite: Sprite2D):
 	age = min(age + grow_speed, h_frames)
